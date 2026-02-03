@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Just for You ❤️</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      width: 350px;
+      text-align: center;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      color: #e63946;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .option {
+      background: #f1f1f1;
+    }
+
+    .option:hover {
+      background: #ffd6d6;
+    }
+
+    .correct {
+      background: #38b000;
+      color: white;
+    }
+
+    .wrong {
+      background: #d00000;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2 id="question">Question here</h2>
+  <div id="options"></div>
+</div>
+
+<script>
+  const quiz = [
+    {
+      q: "What is my favorite color? 💕",
+      options: ["Black", "Pink", "Blue", "Red"],
+      answer: "BLUE"
+    },
+    {
+      q: "When did we first start talking? 😌❤️",
+      options: ["10thstd", "11th", "12th"],
+      answer: "10thstd 😏"
+    },
+    {
+      q: "What do I like more?",
+      options: ["Chocolate", "You", "Ice cream", "Sleep"],
+      answer: "You"
+    },
+    {
+      q: "What nickname do I love the most?",
+      options: ["shiya😍", "shiyona ❤️", "vava"],
+      answer: "shiya😍 "
+    },
+    {
+      q:"What was the first gift I bought you?",
+      options:["chain","mobile case","dairymilk"],
+      answer:"dairymilk "
+    }'
+  ];
+
+  let current = 0;
+
+  function loadQuestion() {
+    document.getElementById("question").innerText = quiz[current].q;
+    const optionsDiv = document.getElementById("options");
+    optionsDiv.innerHTML = "";
+
+    quiz[current].options.forEach(opt => {
+      const btn = document.createElement("button");
+      btn.innerText = opt;
+      btn.className = "option";
+      btn.onclick = () => checkAnswer(btn, opt);
+      optionsDiv.appendChild(btn);
+    });
+  }
+
+  function checkAnswer(button, selected) {
+    const correct = quiz[current].answer;
+
+    if (selected === correct) {
+      button.classList.add("correct");
+      setTimeout(() => {
+        current++;
+        if (current < quiz.length) {
+          loadQuestion();
+        } else {
+          document.body.innerHTML = `
+            <h1 style="color:white; text-align:center;">
+              You passed 😍💖 <br><br>
+              Happy Valentine’s Day ❤️
+            </h1>`;
+        }
+      }, 800);
+    } else {
+      button.classList.add("wrong");
+      button.innerText = "Wrong 😝 Try again";
+    }
+  }
+
+  loadQuestion();
+</script>
+
+</body>
+</html>
